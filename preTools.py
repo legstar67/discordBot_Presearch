@@ -2,10 +2,11 @@ import discord
 import subprocess
 from datetime import datetime
 import requests
-
 import botTools
+from dotenv import load_dotenv
+import os
 
-API_KEY = '34118050-405b-44d4-a201-3233e1b6b730' #TODO WARNING it's private key
+TOKEN_API_COINMARKETCAP = os.getinv("TOKEN_API_COINMARKETCAP")
 
 async def handle_docker_logs(message, command):
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -63,7 +64,7 @@ def get_crypto_price(symbol):
     }
     headers = {
         'Accepts': 'application/json',
-        'X-CMC_PRO_API_KEY': API_KEY
+        'X-CMC_PRO_API_KEY': TOKEN_API_COINMARKETCAP
     }
  
     try:
@@ -75,14 +76,14 @@ def get_crypto_price(symbol):
             price = data['data'][symbol]['quote']['USD']['price']
             return price
         else:
-            print(f"Données non valides pour le symbole {symbol}.")
+            print(f"DATA not valid for {symbol}.")
             return None
 
     except requests.exceptions.RequestException as e:
-        print(f"Erreur lors de la requête API : {e}")
+        print(f"Error API request : {e}")
         return None
     except KeyError as e:
-        print(f"Clé manquante dans la réponse API : {e}")
+        print(f"Api key is missing : {e}")
         return None
 
 

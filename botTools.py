@@ -2,6 +2,7 @@ import discord
 import subprocess
 from datetime import datetime
 
+# Send discord message even if it's longer than 2000 char (limit by discord)
 async def sd_msg(channel, content):
     max_length = 2000 - len("``````") #limit of discord
     if len(content) <= max_length:
@@ -13,7 +14,7 @@ async def sd_msg(channel, content):
             await channel.send(f'```{content[(i)*max_length:min(sizeContent,(i+1)*max_length)]}```')
 
 
-#determine if an element is in content
+# Determine if an element of strTab is in content
 def contains(content,strTab):
     for w in strTab:
         if w in content:

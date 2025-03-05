@@ -3,6 +3,7 @@ import subprocess
 from datetime import datetime
 import preTools
 import funTools
+import botTools
 from dotenv import load_dotenv
 import os
 
@@ -10,8 +11,8 @@ import os
 load_dotenv()
 
 # Remplacez la ligne par 
-# TOKEN = "VOTRE_TOKEN_DISCORD"
-TOKEN = os.getenv('DISCORD_TOKEN')  
+# TOKEN_API_DISCORD = "VOTRE_TOKEN_DISCORD"
+TOKEN_API_DISCORD = os.getenv('TOKEN_API_DISCORD')
 
 
 intents = discord.Intents.default()
@@ -58,7 +59,7 @@ async def on_message(message):
     #END MONITORING
     
     #TOOL
-    elif preTools.contains(message.content,["prepa","prépa"]):
+    elif botTools.contains(message.content,["prepa ","prépa ","Prepa ","Prépa "]):
         dateExamBeginning = datetime(2025, 4,22,8,0,0)
         dif = dateExamBeginning - datetime.today()
         await message.channel.send(f"Bonjour ! \nIl te reste exactement avant ton premier concours : \n\n{dif.days} jours  {dif.seconds//3600} heures  {(dif.seconds%3600) //60 } minutes  {dif.seconds%60 } secondes \n\n**Le futur de ta vie est entre tes mains** :)")
@@ -72,17 +73,16 @@ async def on_message(message):
 
 
     ##TROLL : ------
-    elif preTools.contains(message.content,["lepen","Lepen","LEPEN","droite","Droite","DROITE"]):
+    elif botTools.contains(message.content,["lepen","Lepen","LEPEN","droite","Droite","DROITE"]):
         await message.channel.send('https://tenor.com/view/le-pen-gif-23754327')
-    elif preTools.contains(message.content,["melenchon","Melenchon","mélenchon","Mélenchon","gauche","Gauche","GAUCHE"]):
+    elif botTools.contains(message.content,["melenchon","Melenchon","mélenchon","Mélenchon","gauche","Gauche","GAUCHE"]):
         await message.channel.send('https://tenor.com/view/jean-luc-m%C3%A9lenchon-politique-macron-bfm-bourdin-gif-14227525')
 
-
-    
     ##END TROLL : -----
 
+test = on_message
 
 
-client.run(TOKEN)
+client.run(TOKEN_API_DISCORD)
 
 
