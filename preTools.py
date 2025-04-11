@@ -5,8 +5,11 @@ import requests
 import botTools
 from dotenv import load_dotenv
 import os
+from apiHandler import getDataWithAPI
 
 TOKEN_API_COINMARKETCAP = os.getinv("TOKEN_API_COINMARKETCAP")
+
+
 
 async def handle_docker_logs(message, command):
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -86,6 +89,19 @@ def get_crypto_price(symbol):
         print(f"Api key is missing : {e}")
         return None
 
+
+async def getNodeInfo(APIKeyNode : str , ):
+    urlApiNode = "https://nodes.presearch.com/api/nodes/status/" + APIKeyNode
+    params = {
+        # "public_keys" : ,
+        # "start_date" : ,
+        # "end_date" : ,
+        "stats" : "true",
+        "connected" : "true",
+        "disconnected" : "true",
+        "include_inactive" : "false"}
+    
+    responseJsonText = await getDataWithAPI(urlAPI=urlApiNode,params=params)
 
 
 
